@@ -1,15 +1,16 @@
-import java.util.Stack;
 class Solution {
     public int singleNumber(int[] nums) {
-        if(nums.length==1) return nums[0];
-        HashSet<Integer> set = new HashSet<>();
-        for(int i=0; i<nums.length; i++){
-            if(set.contains(nums[i])){
-                set.remove(nums[i]);
-            }else{
-                set.add(nums[i]);
+        Arrays.sort(nums);
+        int n=nums.length;
+        if(n==1) return nums[0];
+        for(int i=0; i<n-1; i++){
+            if(i==0){
+                if(nums[i]!=nums[i+1]) return nums[i];
+            }else if(nums[i-1]!=nums[i] && nums[i+1]!=nums[i]){
+                return nums[i];
             }
         }
-        return set.iterator().next();
+        if(nums[n-1]!=nums[n-2]) return nums[n-1];
+        return -1;
     }
 }
